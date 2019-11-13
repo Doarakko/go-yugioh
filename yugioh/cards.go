@@ -11,13 +11,13 @@ type CardsService struct {
 
 // Card ...
 type Card struct {
-	ID          int32     `json:"id,string"`
-	Name        string    `json:"name"`
-	Type        string    `json:"type"`
-	Description string    `json:"desc"`
-	Race        string    `json:"race"`
-	Archetype   string    `json:"archetype"`
-	CardSets    []CardSet `json:"card_sets"`
+	ID          int32  `json:"id,string"`
+	Name        string `json:"name"`
+	Type        string `json:"type"`
+	Description string `json:"desc"`
+	Race        string `json:"race"`
+	Archetype   string `json:"archetype"`
+	Sets        []Set  `json:"card_sets"`
 	// CardImages  CardImages  `json:"card_images"`
 	// CardPrices []CardPrice `json:"card_prices"`
 	// Monster
@@ -34,8 +34,8 @@ type Card struct {
 	BanListInfo BanListInfo `json:"banlist_info"`
 }
 
-// CardSet ...
-type CardSet struct {
+// Set ...
+type Set struct {
 	Name   string  `json:"set_name"`
 	Code   string  `json:"set_code"`
 	Rarity string  `json:"set_rarity"`
