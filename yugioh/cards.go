@@ -11,15 +11,15 @@ type CardsService struct {
 
 // Card ...
 type Card struct {
-	ID          int32  `json:"id,string"`
-	Name        string `json:"name"`
-	Type        string `json:"type"`
-	Description string `json:"desc"`
-	Race        string `json:"race"`
-	Archetype   string `json:"archetype"`
-	Sets        []Set  `json:"card_sets"`
-	// CardImages  CardImages  `json:"card_images"`
-	// CardPrices []CardPrice `json:"card_prices"`
+	ID          int32       `json:"id,string"`
+	Name        string      `json:"name"`
+	Type        string      `json:"type"`
+	Description string      `json:"desc"`
+	Race        string      `json:"race"`
+	Archetype   string      `json:"archetype"`
+	Sets        []Set       `json:"card_sets"`
+	CardImages  []CardImage `json:"card_images"`
+	CardPrices  CardPrices  `json:"card_prices"`
 	// Monster
 	Atk       int    `json:"atk,string"`
 	Def       int    `json:"def,string"`
@@ -42,8 +42,8 @@ type Set struct {
 	Price  float32 `json:"set_price,string"`
 }
 
-// CardPrice ...
-type CardPrice struct {
+// CardPrices ...
+type CardPrices struct {
 	CardmarketPrice float32 `json:"cardmarket_price,string"`
 	TcgplayerPrice  float32 `json:"tcgplayer_price,string"`
 	EbayPrice       float32 `json:"ebay_price,string"`
@@ -57,9 +57,9 @@ type BanListInfo struct {
 	Goat string `json:"ban_goat"`
 }
 
-// CardImages ...
-type CardImages struct {
-	ID            int32  `json:"id"`
+// CardImage ...
+type CardImage struct {
+	ID            int32  `json:"id,string"`
 	ImageURL      string `json:"image_url"`
 	ImageURLSmall string `json:"image_url_small"`
 }
