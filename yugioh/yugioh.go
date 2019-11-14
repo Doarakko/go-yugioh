@@ -22,9 +22,9 @@ type Client struct {
 	BaseURL   *url.URL
 	UserAgent string
 
-	Cards      *CardsService
-	CardSets   *CardSetsService
-	RandomCard *RandomCardService
+	Cards       *CardsService
+	CardSets    *CardSetsService
+	RandomCards *RandomCardsService
 }
 
 type service struct {
@@ -60,7 +60,7 @@ func NewClient() *Client {
 	c := &Client{client: httpClient, BaseURL: baseURL, UserAgent: userAgent}
 	c.Cards = &CardsService{client: c}
 	c.CardSets = &CardSetsService{client: c}
-	c.RandomCard = &RandomCardService{client: c}
+	c.RandomCards = &RandomCardsService{client: c}
 
 	return c
 }
