@@ -2,12 +2,14 @@ package yugioh
 
 import "net/http"
 
-// RandomCardsService ...
+// RandomCardsService handles communication with the random cards related
+// methods of the Yu-Gi-Oh! API by YGOPRODeck.
 type RandomCardsService struct {
 	client *Client
 }
 
-// One ...
+// One get random one card.
+// This method can NOT use options.
 func (s *RandomCardsService) One() (*Card, *http.Response, error) {
 	u := defaultBaseURL + "randomcard.php"
 	req, err := s.client.NewRequest("GET", u, nil)
