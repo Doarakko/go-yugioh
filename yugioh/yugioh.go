@@ -1,3 +1,8 @@
+/*
+go-yugioh is a Go client library for accessing the Yu-Gi-Oh! API by YGOPRODeck v5.
+https://db.ygoprodeck.com/api-guide/
+*/
+
 package yugioh
 
 import (
