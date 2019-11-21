@@ -10,6 +10,6 @@ func main() {
 	client := yugioh.NewClient()
 
 	card, _, _ := client.RandomCards.One()
-	fmt.Printf("%v\n%v %v\n[Description]\n%v\n",
+	fmt.Printf("Name: %v\nType: %v\nRace: %v\nDescription:\n%v\n",
 		card.Name, card.Type, card.Race, card.Description)
 }
