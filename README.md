@@ -13,11 +13,13 @@ go-yugioh is a Go client library for accessing the [Yu-Gi-Oh! API by YGOPRODeck]
   - Get card sets.
 - Random Card
   - Get one random card.
+- Card Archetypes
+  - Get card archetypes.
 
 ## Install
 
 ```
-$ go get github.com/Doarakko/go-yugioh
+$ go get github.com/Doarakko/go-yugioh/yugioh
 ```
 
 ## Documentation
