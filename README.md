@@ -129,6 +129,39 @@ Description:
 When this card is Synchro Summoned: You can draw 1 card. Once per Chain, during your opponent's Main Phase, you can: Immediately after this effect resolves, Synchro Summon using this card you control (this is a Quick Effect).
 ```
 
+### Card Archetypes
+
+Print all card Archetypes.
+
+> Note: This api can NOT use any parameters.
+
+```
+func main() {
+	client := yugioh.NewClient()
+
+	archetypes, _, _ := client.Archetypes.List()
+
+	for _, archetype := range archetypes {
+		fmt.Printf("%v\n", archetype.Name)
+	}
+}
+```
+
+```
+@Ignister
+ABC
+Abyss Actor
+Aesir
+Aether
+Alien
+Alligator
+Allure Queen
+Ally of Justice
+Altergeist
+Amazoness
+...
+```
+
 ## License
 
 MIT License

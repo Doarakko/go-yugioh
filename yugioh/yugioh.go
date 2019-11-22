@@ -1,8 +1,3 @@
-/*
-go-yugioh is a Go client library for accessing the Yu-Gi-Oh! API by YGOPRODeck v5.
-https://db.ygoprodeck.com/api-guide/
-*/
-
 package yugioh
 
 import (
@@ -30,6 +25,7 @@ type Client struct {
 	Cards       *CardsService
 	CardSets    *CardSetsService
 	RandomCards *RandomCardsService
+	Archetypes  *ArchetypesService
 }
 
 type service struct {
@@ -66,6 +62,7 @@ func NewClient() *Client {
 	c.Cards = &CardsService{client: c}
 	c.CardSets = &CardSetsService{client: c}
 	c.RandomCards = &RandomCardsService{client: c}
+	c.Archetypes = &ArchetypesService{client: c}
 
 	return c
 }
