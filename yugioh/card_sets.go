@@ -13,7 +13,7 @@ type CardSet struct {
 	Name string `json:"Set Name"`
 }
 
-// List get all card set names.
+// List get all card sets name.
 // This method can NOT use options.
 func (s *CardSetsService) List() ([]CardSet, *http.Response, error) {
 	u := defaultBaseURL + "cardsets.php"
