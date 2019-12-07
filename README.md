@@ -19,7 +19,7 @@ go-yugioh is a Go client library for accessing the [Yu-Gi-Oh! API by YGOPRODeck]
 ## Install
 
 ```
-$ go get github.com/Doarakko/go-yugioh/yugioh
+$ go get -u github.com/Doarakko/go-yugioh/yugioh
 ```
 
 ## Documentation
