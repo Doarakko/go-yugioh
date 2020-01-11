@@ -39,6 +39,12 @@ type Card struct {
 
 	// Ban Card only
 	BanListInfo BanListInfo `json:"banlist_info"`
+
+	// The number of times a card has been viewed in ygoprodeck (does not include API/external views)
+	Views int `json:"views,string"`
+
+	// The available formats the card is in (tcg, ocg, goat, ocg goat, duel links, rush duel or speed duel).
+	Formats string `json:"formats"`
 }
 
 // Set ...
@@ -91,7 +97,7 @@ type CardsListOptions struct {
 	// atk, def, name, type, level, id, new
 	Sort string `url:"sort,omitempty"`
 
-	// goat, ocg goat, speed duel, duel links
+	// goat, ocg goat, speed duel, rush duel, duel links
 	// Duel Links is not 100% accurate but is close.
 	Format string `url:"format,omitempty"`
 
