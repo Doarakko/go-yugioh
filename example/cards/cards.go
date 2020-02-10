@@ -13,7 +13,8 @@ func main() {
 			Q:         "dragon",
 			Type:      "Fusion Monster",
 			Attribute: "light",
-		})
+		},
+	)
 	if err != nil {
 		fmt.Println(err)
 		return
