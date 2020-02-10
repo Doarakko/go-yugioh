@@ -10,7 +10,10 @@ type CardSetsService struct {
 
 // CardSet ...
 type CardSet struct {
-	Name string `json:"Set Name"`
+	Name        string `json:"set_name"`
+	Code        string `json:"set_code"`
+	CardCounts  int    `json:"num_of_cards"`
+	ReleaseDate string `json:"tcg_date"`
 }
 
 // List get all card sets name.
