@@ -42,11 +42,12 @@ Get card information with some parameters.
 ```go
 func main() {
 	client := yugioh.NewClient()
-	cards, _, _ := client.Cards.List(
+	cards, _, err := client.Cards.List(
 		&yugioh.CardsListOptions{
 			Q:         "dragon",
 			Type:      "Fusion Monster",
 			Attribute: "light",
+			Atk:       "gte1200",
 		},
 	)
 
@@ -61,12 +62,14 @@ func main() {
 Name: A-to-Z-Dragon Buster Cannon
 Type: Fusion Monster
 Race: Machine
+Atk: 4000
 "ABC-Dragon Buster" + "XYZ-Dragon Cannon"
 Must be Special Summoned (from your Extra Deck) by banishing cards you control with the above original names, and cannot be Special Summoned by other ways. (You do not use "Polymerization".) During either player's turn, when your opponent activates a Spell/Trap Card, or monster effect: You can discard 1 card; negate the activation, and if you do, destroy that card. During either player's turn: You can banish this card, then target 1 each of your banished "ABC-Dragon Buster", and "XYZ-Dragon Cannon"; Special Summon them.
 
 Name: ABC-Dragon Buster
 Type: Fusion Monster
 Race: Machine
+Atk: 3000
 "A-Assault Core" + "B-Buster Drake" + "C-Crush Wyvern"
 Must first be Special Summoned (from your Extra Deck) by banishing the above cards you control and/or from your Graveyard. (You do not use "Polymerization".) Once per turn, during either player's turn: You can discard 1 card, then target 1 card on the field; banish it. During your opponent's turn: You can Tribute this card, then target 3 of your banished LIGHT Machine-Type Union monsters with different names; Special Summon them (this is a Quick Effect).
 ...

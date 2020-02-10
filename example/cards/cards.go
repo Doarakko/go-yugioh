@@ -13,6 +13,7 @@ func main() {
 			Q:         "dragon",
 			Type:      "Fusion Monster",
 			Attribute: "light",
+			Atk:       "gte1200",
 		},
 	)
 	if err != nil {
@@ -21,7 +22,7 @@ func main() {
 	}
 
 	for _, card := range cards[:5] {
-		fmt.Printf("Name: %v\nType: %v\nRace: %v\n%v\n\n",
-			card.Name, card.Type, card.Race, card.Description)
+		fmt.Printf("Name: %v\nType: %v\nRace: %v\nAtk: %v\n%v\n\n",
+			card.Name, card.Type, card.Race, card.Atk, card.Description)
 	}
 }
