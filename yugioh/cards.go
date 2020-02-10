@@ -13,27 +13,27 @@ type CardsService struct {
 // Card ...
 // If a piece of response info is empty or null then it will NOT show up.
 type Card struct {
-	ID          int32   `json:"id,string"`
-	Name        string  `json:"name"`
-	Type        string  `json:"type"`
-	Description string  `json:"desc"`
-	Race        string  `json:"race"`
-	Archetype   string  `json:"archetype"`
-	Sets        []Set   `json:"card_sets"`
-	Images      []Image `json:"card_images"`
-	Prices      Prices  `json:"card_prices"`
+	ID          int32    `json:"id"`
+	Name        string   `json:"name"`
+	Type        string   `json:"type"`
+	Description string   `json:"desc"`
+	Race        string   `json:"race"`
+	Archetype   string   `json:"archetype"`
+	Sets        []Set    `json:"card_sets"`
+	Images      []Image  `json:"card_images"`
+	Prices      []Prices `json:"card_prices"`
 
 	// Monster Card only
-	Atk       int    `json:"atk,string"`
-	Def       int    `json:"def,string"`
-	Level     int    `json:"level,string"`
+	Atk       int    `json:"atk"`
+	Def       int    `json:"def"`
+	Level     int    `json:"level"`
 	Attribute string `json:"attribute"`
 
 	// Pendulum Monster Card only
-	Scale int `json:"scale,string"`
+	Scale int `json:"scale"`
 
 	// Link Monster Card only
-	Link int `json:"linkval,string"`
+	Link int `json:"linkval"`
 	// Top, Bottom, Left, Right, Bottom-Left, Bottom-Right, Top-Left, Top-Right
 	LinkMarkers []string `json:"linkmarkers"`
 
@@ -41,7 +41,7 @@ type Card struct {
 	BanListInfo BanListInfo `json:"banlist_info"`
 
 	// The number of times a card has been viewed in ygoprodeck (does not include API/external views)
-	Views int `json:"views,string"`
+	Views int `json:"views"`
 
 	// The available formats the card is in (tcg, ocg, goat, ocg goat, duel links, rush duel or speed duel).
 	Formats string `json:"formats"`
@@ -54,7 +54,7 @@ type Set struct {
 	Rarity string `json:"set_rarity"`
 
 	// Dollar
-	Price float32 `json:"set_price,string"`
+	Price string `json:"set_price"`
 }
 
 // Prices card prices
@@ -64,7 +64,7 @@ type Prices struct {
 	Cardmarket float32 `json:"cardmarket_price,string"`
 
 	// Dollar
-	Tcgplayer float32 `json:"tcgplayer_price,string"`
+	TcgPlayer float32 `json:"tcgplayer_price,string"`
 	Ebay      float32 `json:"ebay_price,string"`
 	Amazon    float32 `json:"amazon_price,string"`
 }
@@ -78,7 +78,7 @@ type BanListInfo struct {
 
 // Image card image.
 type Image struct {
-	ID       int32  `json:"id,string"`
+	ID       int32  `json:"id"`
 	URL      string `json:"image_url"`
 	SmallURL string `json:"image_url_small"`
 }
@@ -87,7 +87,7 @@ type Image struct {
 type CardsListOptions struct {
 	ID        int32  `url:"name,omitempty"`
 	Name      string `url:"name,omitempty"`
-	KeyWord   string `url:"fname,omitempty"`
+	Q         string `url:"fname,omitempty"`
 	Type      string `url:"type,omitempty"`
 	Race      string `url:"race,omitempty"`
 	Archetype string `url:"archetype,omitempty"`
