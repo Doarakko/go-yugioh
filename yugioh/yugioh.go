@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	defaultBaseURL = "https://db.ygoprodeck.com/api/v5/"
+	defaultBaseURL = "https://db.ygoprodeck.com/api/v6/"
 	userAgent      = "go-yugioh"
 )
 
