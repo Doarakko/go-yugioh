@@ -101,13 +101,11 @@ type CardsListOptions struct {
 	// Duel Links is not 100% accurate but is close.
 	Format string `url:"format,omitempty"`
 
-	// English (Official), French
-	Language string `url:"la,omitempty"`
+	// it can use "lt" (less than), "lte" (less than equals to), "gt" (greater than), "gte" (greater than equals to)
+	Atk   string `url:"atk,omitempty"`
+	Def   string `url:"def,omitempty"`
+	Level string `url:"level,omitempty"`
 
-	// Monster Card only
-	Atk   int `url:"atk,omitempty"`
-	Def   int `url:"def,omitempty"`
-	Level int `url:"level,omitempty"`
 	// dark, earth, fire, light, water, wind, divine
 	Attribute string `url:"attribute,omitempty"`
 
@@ -117,6 +115,9 @@ type CardsListOptions struct {
 	// Link Monster Card only
 	Link       int    `url:"link,omitempty"`
 	LinkMarker string `url:"linkmarker,omitempty"`
+
+	//
+	Misc string `url:"misc,omitempty"`
 }
 
 // List the cards
