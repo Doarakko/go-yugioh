@@ -17,10 +17,10 @@ func (s *RandomCardsService) One() (*Card, *http.Response, error) {
 		return nil, nil, err
 	}
 
-	cards := new([]Card)
-	resp, err := s.client.Do(req, cards)
+	card := new(Card)
+	resp, err := s.client.Do(req, &card)
 	if err != nil {
 		return nil, resp, err
 	}
-	return &(*cards)[0], resp, err
+	return card, resp, err
 }

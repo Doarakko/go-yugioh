@@ -13,7 +13,7 @@ type CardsService struct {
 // Card ...
 // If a piece of response info is empty or null then it will NOT show up.
 type Card struct {
-	ID          int32   `json:"id,string"`
+	ID          int32   `json:"id"`
 	Name        string  `json:"name"`
 	Type        string  `json:"type"`
 	Description string  `json:"desc"`
@@ -21,30 +21,27 @@ type Card struct {
 	Archetype   string  `json:"archetype"`
 	Sets        []Set   `json:"card_sets"`
 	Images      []Image `json:"card_images"`
-	Prices      Prices  `json:"card_prices"`
+
+	// array, but this API currently only returns one
+	Prices []Prices `json:"card_prices"`
+	Misc   []Misc   `json:"misc_info"`
 
 	// Monster Card only
-	Atk       int    `json:"atk,string"`
-	Def       int    `json:"def,string"`
-	Level     int    `json:"level,string"`
+	Atk       int    `json:"atk"`
+	Def       int    `json:"def"`
+	Level     int    `json:"level"`
 	Attribute string `json:"attribute"`
 
 	// Pendulum Monster Card only
-	Scale int `json:"scale,string"`
+	Scale int `json:"scale"`
 
 	// Link Monster Card only
-	Link int `json:"linkval,string"`
+	Link int `json:"linkval"`
 	// Top, Bottom, Left, Right, Bottom-Left, Bottom-Right, Top-Left, Top-Right
 	LinkMarkers []string `json:"linkmarkers"`
 
 	// Ban Card only
 	BanListInfo BanListInfo `json:"banlist_info"`
-
-	// The number of times a card has been viewed in ygoprodeck (does not include API/external views)
-	Views int `json:"views,string"`
-
-	// The available formats the card is in (tcg, ocg, goat, ocg goat, duel links, rush duel or speed duel).
-	Formats string `json:"formats"`
 }
 
 // Set ...
@@ -54,7 +51,7 @@ type Set struct {
 	Rarity string `json:"set_rarity"`
 
 	// Dollar
-	Price float32 `json:"set_price,string"`
+	Price string `json:"set_price"`
 }
 
 // Prices card prices
@@ -64,7 +61,7 @@ type Prices struct {
 	Cardmarket float32 `json:"cardmarket_price,string"`
 
 	// Dollar
-	Tcgplayer float32 `json:"tcgplayer_price,string"`
+	TcgPlayer float32 `json:"tcgplayer_price,string"`
 	Ebay      float32 `json:"ebay_price,string"`
 	Amazon    float32 `json:"amazon_price,string"`
 }
@@ -78,16 +75,28 @@ type BanListInfo struct {
 
 // Image card image.
 type Image struct {
-	ID       int32  `json:"id,string"`
+	ID       int32  `json:"id"`
 	URL      string `json:"image_url"`
 	SmallURL string `json:"image_url_small"`
+}
+
+// Misc if you want to get, set "yes" to Misc param
+type Misc struct {
+	// The Old/Temporary/Translated name
+	BetaName string `json:"beta_name"`
+
+	// The number of times a card has been viewed in ygoprodeck (does not include API/external views)
+	Views int `json:"views"`
+
+	// The available formats the card is in (tcg, ocg, goat, ocg goat, duel links, rush duel or speed duel).
+	Formats []string `json:"formats"`
 }
 
 // CardsListOptions specifies the optional parameters to various CardsService.List methods.
 type CardsListOptions struct {
 	ID        int32  `url:"name,omitempty"`
 	Name      string `url:"name,omitempty"`
-	KeyWord   string `url:"fname,omitempty"`
+	Q         string `url:"fname,omitempty"`
 	Type      string `url:"type,omitempty"`
 	Race      string `url:"race,omitempty"`
 	Archetype string `url:"archetype,omitempty"`
@@ -101,13 +110,11 @@ type CardsListOptions struct {
 	// Duel Links is not 100% accurate but is close.
 	Format string `url:"format,omitempty"`
 
-	// English (Official), French
-	Language string `url:"la,omitempty"`
+	// it can use "lt" (less than), "lte" (less than equals to), "gt" (greater than), "gte" (greater than equals to)
+	Atk   string `url:"atk,omitempty"`
+	Def   string `url:"def,omitempty"`
+	Level string `url:"level,omitempty"`
 
-	// Monster Card only
-	Atk   int `url:"atk,omitempty"`
-	Def   int `url:"def,omitempty"`
-	Level int `url:"level,omitempty"`
 	// dark, earth, fire, light, water, wind, divine
 	Attribute string `url:"attribute,omitempty"`
 
@@ -117,6 +124,9 @@ type CardsListOptions struct {
 	// Link Monster Card only
 	Link       int    `url:"link,omitempty"`
 	LinkMarker string `url:"linkmarker,omitempty"`
+
+	// If set "yes", return Misc
+	Misc string `url:"misc,omitempty"`
 }
 
 // List the cards

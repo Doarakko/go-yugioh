@@ -1,9 +1,9 @@
 # go-yugioh
 
-[![GoDoc](https://godoc.org/github.com/Doarakko/go-yugioh?status.svg)](https://godoc.org/github.com/Doarakko/go-yugioh)
+[![GoDoc](https://godoc.org/github.com/Doarakko/go-yugioh?status.svg)](https://pkg.go.dev/github.com/Doarakko/go-yugioh/yugioh)
 [![Go Report Card](https://goreportcard.com/badge/github.com/Doarakko/go-yugioh)](https://goreportcard.com/report/github.com/Doarakko/go-yugioh)
 
-go-yugioh is a Go client library for accessing the [Yu-Gi-Oh! API by YGOPRODeck](https://db.ygoprodeck.com/api-guide/) v5.
+go-yugioh is a Go client library for accessing the [Yu-Gi-Oh! API by YGOPRODeck v6](https://db.ygoprodeck.com/api-guide/).
 
 ## Feature
 
@@ -24,7 +24,7 @@ $ go get -u github.com/Doarakko/go-yugioh/yugioh
 
 ## Documentation
 
-Check [GoDoc](https://godoc.org/github.com/Doarakko/go-yugioh) and [API document](https://db.ygoprodeck.com/api-guide/).
+Check [GoDoc](https://pkg.go.dev/github.com/Doarakko/go-yugioh/yugioh) and [API document](https://db.ygoprodeck.com/api-guide/).
 
 ## Usage
 
@@ -37,36 +37,43 @@ Please be carefull on the API rate limit.
 
 Get card information with some parameters.
 
-> Note: Search target of `KeyWord` in `CardsListOptions` is only card name.
+> Note: Search target of `Q` in `CardsListOptions` is only card name.
 
-```
+```go
 func main() {
 	client := yugioh.NewClient()
-	cards, _, _ := client.Cards.List(
+	cards, _, err := client.Cards.List(
 		&yugioh.CardsListOptions{
-			KeyWord: "dragon", Type: "Fusion Monster", Attribute: "light"})
+			Q:         "dragon",
+			Type:      "Fusion Monster",
+			Attribute: "light",
+			Atk:       "gt3000",
+			Misc:      "yes",
+		},
+	)
 
-	for _, card := range cards {
-		fmt.Printf("Name: %v\nType: %v\nRace: %v\nDescription:\n%v\n\n",
-			card.Name, card.Type, card.Race, card.Description)
+	for _, card := range cards[:5] {
+		fmt.Printf("\"%s\" has been viewed %d times.\n", card.Name, card.Misc[0].Views)
+		fmt.Printf("Type: %v\nRace: %v\nAtk: %v\n%v\n\n",
+			card.Type, card.Race, card.Atk, card.Description)
 	}
 }
 ```
 
 ```
-Name: A-to-Z-Dragon Buster Cannon
+"A-to-Z-Dragon Buster Cannon" has been viewed 50305 times.
 Type: Fusion Monster
 Race: Machine
-Description:
+Atk: 4000
 "ABC-Dragon Buster" + "XYZ-Dragon Cannon"
 Must be Special Summoned (from your Extra Deck) by banishing cards you control with the above original names, and cannot be Special Summoned by other ways. (You do not use "Polymerization".) During either player's turn, when your opponent activates a Spell/Trap Card, or monster effect: You can discard 1 card; negate the activation, and if you do, destroy that card. During either player's turn: You can banish this card, then target 1 each of your banished "ABC-Dragon Buster", and "XYZ-Dragon Cannon"; Special Summon them.
 
-Name: ABC-Dragon Buster
+"Armed Dragon Catapult Cannon" has been viewed 28559 times.
 Type: Fusion Monster
 Race: Machine
-Description:
-"A-Assault Core" + "B-Buster Drake" + "C-Crush Wyvern"
-Must first be Special Summoned (from your Extra Deck) by banishing the above cards you control and/or from your Graveyard. (You do not use "Polymerization".) Once per turn, during either player's turn: You can discard 1 card, then target 1 card on the field; banish it. During your opponent's turn: You can Tribute this card, then target 3 of your banished LIGHT Machine-Type Union monsters with different names; Special Summon them (this is a Quick Effect).
+Atk: 3500
+"VWXYZ-Dragon Catapult Cannon" + "Armed Dragon LV7"
+Must first be Special Summoned (from your Extra Deck) during a Duel you Special Summoned both the above cards, by banishing the above cards from your field and/or GY. (You do not use "Polymerization".) Your opponent cannot activate cards or effects with the same name as any banished card. Once per turn, during your opponent's turn (Quick Effect): You can banish 1 card from your Deck or Extra Deck, face-up; banish all cards your opponent controls and in their GY.
 ...
 ```
 
@@ -76,34 +83,26 @@ Print all card sets.
 
 > Note: This api can NOT use any parameters.
 
-```
+```go
 func main() {
 	client := yugioh.NewClient()
 
 	cardSets, _, _ := client.CardSets.List()
 
-	for _, set := range cardSets {
-		fmt.Printf("%v\n", set.Name)
+	fmt.Printf("Get %v card sets, below are the first five.\n", len(cardSets))
+	for _, set := range cardSets[:5] {
+		fmt.Printf("%v was released on %v\n", set.Name, set.ReleaseDate)
 	}
-
 }
 ```
 
 ```
-2-Player Starter Deck: Yuya & Declan
-2013 Collectible Tins Wave 1
-2013 Collectible Tins Wave 2
-2014 Mega-Tin Mega Pack
-2014 Mega-Tins
-2015 Mega-Tin Mega Pack
-2015 Mega-Tins
-2016 Mega-Tin Mega Pack
-2016 Mega-Tins
-2017 Mega-Tin Mega Pack
-2017 Mega-Tins
-2018 Mega-Tin Mega Pack
-2018 Mega-Tins
-...
+Get 790 card sets, below are the first five.
+2-Player Starter Deck: Yuya & Declan was released on 2015-05-28
+2013 Collectible Tins Wave 1 was released on 2013-08-30
+2013 Collectible Tins Wave 2 was released on 2013-11-22
+2014 Mega-Tin Mega Pack was released on 2014-08-28
+2014 Mega-Tins was released on 2014-08-28
 ```
 
 ### Random Card
@@ -112,23 +111,21 @@ Get one random card.
 
 > Note: This api can NOT use any parameters.
 
-```
+```go
 func main() {
 	client := yugioh.NewClient()
 
 	card, _, _ := client.RandomCards.One()
-	fmt.Printf("Name: %v\nType: %v\nRace: %v\nDescription:\n%v\n",
+	fmt.Printf("Name: %v\nType: %v\nRace: %v\n%v\n",
 		card.Name, card.Type, card.Race, card.Description)
 }
 ```
 
 ```
-Name: Formula Synchron
-Type: Synchro Tuner Monster
-Race: Machine
-Description:
-1 Tuner + 1 non-Tuner monster
-When this card is Synchro Summoned: You can draw 1 card. Once per Chain, during your opponent's Main Phase, you can: Immediately after this effect resolves, Synchro Summon using this card you control (this is a Quick Effect).
+Name: Damage Polarizer
+Type: Trap Card
+Race: Counter
+Activate only when an effect that inflicts damage is activated. Negate its activation and effect, and each player draws 1 card.
 ```
 
 ### Card Archetypes
@@ -137,31 +134,26 @@ Print all card Archetypes.
 
 > Note: This api can NOT use any parameters.
 
-```
+```go
 func main() {
 	client := yugioh.NewClient()
 
 	archetypes, _, _ := client.Archetypes.List()
 
-	for _, archetype := range archetypes {
+	fmt.Printf("Get %v archetypes, below are the first five.\n", len(archetypes))
+	for _, archetype := range archetypes[:5] {
 		fmt.Printf("%v\n", archetype.Name)
 	}
 }
 ```
 
 ```
+Get 319 archetypes, below are the first five.
 @Ignister
 ABC
 Abyss Actor
+Adamatia
 Aesir
-Aether
-Alien
-Alligator
-Allure Queen
-Ally of Justice
-Altergeist
-Amazoness
-...
 ```
 
 ## License
