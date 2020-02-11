@@ -13,7 +13,8 @@ func main() {
 			Q:         "dragon",
 			Type:      "Fusion Monster",
 			Attribute: "light",
-			Atk:       "gte1200",
+			Atk:       "gt3000",
+			Misc:      "yes",
 		},
 	)
 	if err != nil {
@@ -22,7 +23,8 @@ func main() {
 	}
 
 	for _, card := range cards[:5] {
-		fmt.Printf("Name: %v\nType: %v\nRace: %v\nAtk: %v\n%v\n\n",
-			card.Name, card.Type, card.Race, card.Atk, card.Description)
+		fmt.Printf("\"%s\" has been viewed %d times.\n", card.Name, card.Misc[0].Views)
+		fmt.Printf("Type: %v\nRace: %v\nAtk: %v\n%v\n\n",
+			card.Type, card.Race, card.Atk, card.Description)
 	}
 }

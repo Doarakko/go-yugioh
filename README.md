@@ -47,31 +47,33 @@ func main() {
 			Q:         "dragon",
 			Type:      "Fusion Monster",
 			Attribute: "light",
-			Atk:       "gte1200",
+			Atk:       "gt3000",
+			Misc:      "yes",
 		},
 	)
 
 	for _, card := range cards[:5] {
-		fmt.Printf("Name: %v\nType: %v\nRace: %v\n%v\n\n",
-			card.Name, card.Type, card.Race, card.Description)
+		fmt.Printf("\"%s\" has been viewed %d times.\n", card.Name, card.Misc[0].Views)
+		fmt.Printf("Type: %v\nRace: %v\nAtk: %v\n%v\n\n",
+			card.Type, card.Race, card.Atk, card.Description)
 	}
 }
 ```
 
 ```
-Name: A-to-Z-Dragon Buster Cannon
+"A-to-Z-Dragon Buster Cannon" has been viewed 50305 times.
 Type: Fusion Monster
 Race: Machine
 Atk: 4000
 "ABC-Dragon Buster" + "XYZ-Dragon Cannon"
 Must be Special Summoned (from your Extra Deck) by banishing cards you control with the above original names, and cannot be Special Summoned by other ways. (You do not use "Polymerization".) During either player's turn, when your opponent activates a Spell/Trap Card, or monster effect: You can discard 1 card; negate the activation, and if you do, destroy that card. During either player's turn: You can banish this card, then target 1 each of your banished "ABC-Dragon Buster", and "XYZ-Dragon Cannon"; Special Summon them.
 
-Name: ABC-Dragon Buster
+"Armed Dragon Catapult Cannon" has been viewed 28559 times.
 Type: Fusion Monster
 Race: Machine
-Atk: 3000
-"A-Assault Core" + "B-Buster Drake" + "C-Crush Wyvern"
-Must first be Special Summoned (from your Extra Deck) by banishing the above cards you control and/or from your Graveyard. (You do not use "Polymerization".) Once per turn, during either player's turn: You can discard 1 card, then target 1 card on the field; banish it. During your opponent's turn: You can Tribute this card, then target 3 of your banished LIGHT Machine-Type Union monsters with different names; Special Summon them (this is a Quick Effect).
+Atk: 3500
+"VWXYZ-Dragon Catapult Cannon" + "Armed Dragon LV7"
+Must first be Special Summoned (from your Extra Deck) during a Duel you Special Summoned both the above cards, by banishing the above cards from your field and/or GY. (You do not use "Polymerization".) Your opponent cannot activate cards or effects with the same name as any banished card. Once per turn, during your opponent's turn (Quick Effect): You can banish 1 card from your Deck or Extra Deck, face-up; banish all cards your opponent controls and in their GY.
 ...
 ```
 

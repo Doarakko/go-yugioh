@@ -13,15 +13,18 @@ type CardsService struct {
 // Card ...
 // If a piece of response info is empty or null then it will NOT show up.
 type Card struct {
-	ID          int32    `json:"id"`
-	Name        string   `json:"name"`
-	Type        string   `json:"type"`
-	Description string   `json:"desc"`
-	Race        string   `json:"race"`
-	Archetype   string   `json:"archetype"`
-	Sets        []Set    `json:"card_sets"`
-	Images      []Image  `json:"card_images"`
-	Prices      []Prices `json:"card_prices"`
+	ID          int32   `json:"id"`
+	Name        string  `json:"name"`
+	Type        string  `json:"type"`
+	Description string  `json:"desc"`
+	Race        string  `json:"race"`
+	Archetype   string  `json:"archetype"`
+	Sets        []Set   `json:"card_sets"`
+	Images      []Image `json:"card_images"`
+
+	// array, but this API currently only returns one
+	Prices []Prices `json:"card_prices"`
+	Misc   []Misc   `json:"misc_info"`
 
 	// Monster Card only
 	Atk       int    `json:"atk"`
@@ -39,12 +42,6 @@ type Card struct {
 
 	// Ban Card only
 	BanListInfo BanListInfo `json:"banlist_info"`
-
-	// The number of times a card has been viewed in ygoprodeck (does not include API/external views)
-	Views int `json:"views"`
-
-	// The available formats the card is in (tcg, ocg, goat, ocg goat, duel links, rush duel or speed duel).
-	Formats string `json:"formats"`
 }
 
 // Set ...
@@ -83,6 +80,18 @@ type Image struct {
 	SmallURL string `json:"image_url_small"`
 }
 
+// Misc if you want to get, set "yes" to Misc param
+type Misc struct {
+	// The Old/Temporary/Translated name
+	BetaName string `json:"beta_name"`
+
+	// The number of times a card has been viewed in ygoprodeck (does not include API/external views)
+	Views int `json:"views"`
+
+	// The available formats the card is in (tcg, ocg, goat, ocg goat, duel links, rush duel or speed duel).
+	Formats []string `json:"formats"`
+}
+
 // CardsListOptions specifies the optional parameters to various CardsService.List methods.
 type CardsListOptions struct {
 	ID        int32  `url:"name,omitempty"`
@@ -116,7 +125,7 @@ type CardsListOptions struct {
 	Link       int    `url:"link,omitempty"`
 	LinkMarker string `url:"linkmarker,omitempty"`
 
-	//
+	// If set "yes", return Misc
 	Misc string `url:"misc,omitempty"`
 }
 
