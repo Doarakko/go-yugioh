@@ -90,6 +90,16 @@ type Misc struct {
 
 	// The available formats the card is in (tcg, ocg, goat, ocg goat, duel links, rush duel or speed duel).
 	Formats []string `json:"formats"`
+
+	// The original date the card was released in the TCG.
+	TCGDate string `json:"tcg_date"`
+
+	// The original date the card was released in the OCG.
+	OCGDate string `json:"ocg_date"`
+
+	// If the card is treated as another card.
+	// For example, Harpie Lady 1,2,3 are treated as Harpie Lady.
+	TreatedAs string `json:"treated_as"`
 }
 
 // CardsListOptions specifies the optional parameters to various CardsService.List methods.
@@ -127,6 +137,8 @@ type CardsListOptions struct {
 
 	// If set "yes", return Misc
 	Misc string `url:"misc,omitempty"`
+
+	Staple string `url:"staple,omitempty"`
 }
 
 // List the cards
