@@ -61,15 +61,15 @@ type Prices struct {
 	Cardmarket float32 `json:"cardmarket_price,string"`
 
 	// Dollar
-	TcgPlayer float32 `json:"tcgplayer_price,string"`
+	TCGPlayer float32 `json:"tcgplayer_price,string"`
 	Ebay      float32 `json:"ebay_price,string"`
 	Amazon    float32 `json:"amazon_price,string"`
 }
 
 // BanListInfo if card not in ban list, it will NOT show up.
 type BanListInfo struct {
-	Tcg  string `json:"ban_tcg"`
-	Ocg  string `json:"ban_ocg"`
+	TCG  string `json:"ban_tcg"`
+	OCG  string `json:"ban_ocg"`
 	Goat string `json:"ban_goat"`
 }
 
