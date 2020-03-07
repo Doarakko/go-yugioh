@@ -17,6 +17,6 @@ func main() {
 
 	fmt.Printf("Get %v card sets, below are the first five.\n", len(cardSets))
 	for _, set := range cardSets[:5] {
-		fmt.Printf("%v was released on %v\n", set.Name, set.ReleaseDate)
+		fmt.Printf("%v was released on %v\n", set.Name, set.ReleasedDate)
 	}
 }
