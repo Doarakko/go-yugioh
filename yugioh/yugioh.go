@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	defaultBaseURL = "https://db.ygoprodeck.com/api/v6/"
+	defaultBaseURL = "https://db.ygoprodeck.com/api/v7/"
 	userAgent      = "go-yugioh"
 )
 
@@ -24,6 +24,7 @@ type Client struct {
 
 	Cards       *CardsService
 	CardSets    *CardSetsService
+	CardSetInfo *CardSetInfoService
 	RandomCards *RandomCardsService
 	Archetypes  *ArchetypesService
 }
@@ -61,6 +62,7 @@ func NewClient() *Client {
 	c := &Client{client: httpClient, BaseURL: baseURL, UserAgent: userAgent}
 	c.Cards = &CardsService{client: c}
 	c.CardSets = &CardSetsService{client: c}
+	c.CardSetInfo = &CardSetInfoService{client: c}
 	c.RandomCards = &RandomCardsService{client: c}
 	c.Archetypes = &ArchetypesService{client: c}
 
