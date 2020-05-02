@@ -1,6 +1,7 @@
 package yugioh
 
 import (
+	"fmt"
 	"net/http"
 )
 
@@ -10,8 +11,13 @@ type CardsService struct {
 	client *Client
 }
 
-// Card ...
-// If a piece of response info is empty or null then it will NOT show up.
+// Cards ...
+type Cards struct {
+	Data []Card `json:"data"`
+	Meta Meta   `json:"meta"`
+}
+
+// Card if a piece of response info is empty or null then it will NOT show up.
 type Card struct {
 	ID          int32   `json:"id"`
 	Name        string  `json:"name"`
@@ -46,9 +52,10 @@ type Card struct {
 
 // Set ...
 type Set struct {
-	Name   string `json:"set_name"`
-	Code   string `json:"set_code"`
-	Rarity string `json:"set_rarity"`
+	Name       string `json:"set_name"`
+	Code       string `json:"set_code"`
+	Rarity     string `json:"set_rarity"`
+	RarityCode string `json:"set_rarity_code"`
 
 	// Dollar
 	Price string `json:"set_price"`
@@ -61,9 +68,10 @@ type Prices struct {
 	Cardmarket float32 `json:"cardmarket_price,string"`
 
 	// Dollar
-	TCGPlayer float32 `json:"tcgplayer_price,string"`
-	Ebay      float32 `json:"ebay_price,string"`
-	Amazon    float32 `json:"amazon_price,string"`
+	TCGPlayer    float32 `json:"tcgplayer_price,string"`
+	Ebay         float32 `json:"ebay_price,string"`
+	Amazon       float32 `json:"amazon_price,string"`
+	CoolStuffInc float32 `json:"coolstuffinc_price,string"`
 }
 
 // BanListInfo if card not in ban list, it will NOT show up.
@@ -102,6 +110,23 @@ type Misc struct {
 	TreatedAs string `json:"treated_as"`
 }
 
+// Meta about pagination
+type Meta struct {
+	CurrentRows    int `json:"current_rows"`
+	TotalRows      int `json:"total_rows"`
+	RowsRemaining  int `json:"rows_remaining"`
+	TotalPages     int `json:"total_pages"`
+	PagesRemaining int `json:"pages_remaining"`
+
+	// omitted on last page
+	NextPage       string `json:"next_page,omitempty"`
+	NextPageOffset int    `json:"next_page_offset,omitempty"`
+
+	// omitted if not on the last page
+	PreviousPage       string `json:"previous_page,omitempty"`
+	PreviousPageOffset int    `json:"previous_page_offset,omitempty"`
+}
+
 // CardsListOptions specifies the optional parameters to various CardsService.List methods.
 type CardsListOptions struct {
 	ID        int32  `url:"name,omitempty"`
@@ -129,7 +154,7 @@ type CardsListOptions struct {
 	Attribute string `url:"attribute,omitempty"`
 
 	// Pendulum Monster Card only
-	Scale int `json:"scale,omitempty"`
+	Scale int `url:"scale,omitempty"`
 
 	// Link Monster Card only
 	Link       int    `url:"link,omitempty"`
@@ -139,22 +164,31 @@ type CardsListOptions struct {
 	Misc string `url:"misc,omitempty"`
 
 	Staple string `url:"staple,omitempty"`
+
+	Num    int `url:"num,omitempty"`
+	Offset int `url:"offset,omitempty"`
 }
 
 // List the cards
-func (s *CardsService) List(opt *CardsListOptions) ([]Card, *http.Response, error) {
+func (s *CardsService) List(opt *CardsListOptions) (*Cards, *http.Response, error) {
 	u, err := addOptions("cardinfo.php", opt)
 	if err != nil {
 		return nil, nil, err
 	}
+	// prevent to offset from being omitted
+	if opt.Num > 0 && opt.Offset == 0 {
+		u = fmt.Sprintf("%s&offset=0", u)
+	}
+
 	req, err := s.client.NewRequest("GET", u, nil)
 	if err != nil {
 		return nil, nil, err
 	}
-	cards := new([]Card)
+	cards := new(Cards)
 	resp, err := s.client.Do(req, cards)
 	if err != nil {
 		return nil, resp, err
 	}
-	return *cards, resp, err
+
+	return cards, resp, err
 }
