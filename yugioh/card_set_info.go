@@ -18,11 +18,16 @@ type CardSetInfo struct {
 
 // CardSetInfoOneOptions ...
 type CardSetInfoOneOptions struct {
-	Code string `url:"setcode"`
+	Code string `url:"setcode" validate:"required"`
 }
 
 // One ...
 func (s *CardSetInfoService) One(opt *CardSetInfoOneOptions) (*CardSetInfo, *http.Response, error) {
+	err := Validate(opt)
+	if err != nil {
+		return nil, nil, err
+	}
+
 	u, err := addOptions("cardsetsinfo.php", opt)
 	if err != nil {
 		return nil, nil, err
