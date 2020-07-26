@@ -138,8 +138,7 @@ type CardsListOptions struct {
 	Set       string `url:"set,omitempty"`
 	BanList   string `url:"banlist,omitempty"`
 
-	// atk, def, name, type, level, id, new
-	Sort string `url:"sort,omitempty"`
+	Sort string `url:"sort,omitempty" validate:"omitempty,oneof=atk def name type level id new"`
 
 	// goat, ocg goat, speed duel, rush duel, duel links
 	// Duel Links is not 100% accurate but is close.
@@ -150,8 +149,7 @@ type CardsListOptions struct {
 	Def   string `url:"def,omitempty"`
 	Level string `url:"level,omitempty"`
 
-	// dark, earth, fire, light, water, wind, divine
-	Attribute string `url:"attribute,omitempty"`
+	Attribute string `url:"attribute,omitempty" validate:"omitempty,oneof=dark earth fire light water wind divine"`
 
 	// Pendulum Monster Card only
 	Scale int `url:"scale,omitempty"`
@@ -161,7 +159,7 @@ type CardsListOptions struct {
 	LinkMarker string `url:"linkmarker,omitempty"`
 
 	// If set "yes", return Misc
-	Misc string `url:"misc,omitempty"`
+	Misc string `url:"misc,omitempty" validate:"omitempty,eq=yes"`
 
 	Staple string `url:"staple,omitempty"`
 
@@ -173,6 +171,11 @@ type CardsListOptions struct {
 
 // List the cards
 func (s *CardsService) List(opt *CardsListOptions) (*Cards, *http.Response, error) {
+	err := Validate(opt)
+	if err != nil {
+		return nil, nil, err
+	}
+
 	u, err := addOptions("cardinfo.php", opt)
 	if err != nil {
 		return nil, nil, err
