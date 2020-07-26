@@ -165,6 +165,8 @@ type CardsListOptions struct {
 
 	Staple string `url:"staple,omitempty"`
 
+	Language string `url:"language,omitempty"`
+
 	Num    int `url:"num,omitempty"`
 	Offset int `url:"offset,omitempty"`
 }
