@@ -17,7 +17,7 @@ type Archetype struct {
 // This method can NOT use options.
 func (s *ArchetypesService) List() ([]Archetype, *http.Response, error) {
 	u := defaultBaseURL + "archetypes.php"
-	req, err := s.client.NewRequest("GET", u, nil)
+	req, err := s.client.NewRequest(http.MethodGet, u, nil)
 	if err != nil {
 		return nil, nil, err
 	}

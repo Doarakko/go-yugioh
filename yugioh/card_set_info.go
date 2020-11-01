@@ -32,7 +32,7 @@ func (s *CardSetInfoService) One(opt *CardSetInfoOneOptions) (*CardSetInfo, *htt
 	if err != nil {
 		return nil, nil, err
 	}
-	req, err := s.client.NewRequest("GET", u, nil)
+	req, err := s.client.NewRequest(http.MethodGet, u, nil)
 	if err != nil {
 		return nil, nil, err
 	}
