@@ -17,11 +17,12 @@ go-yugioh is a Go client library for accessing the [Yu-Gi-Oh! API by YGOPRODeck]
   - Get one random card.
 - Card Archetypes
   - Get card archetypes.
+- Check DB version
 
 ## Install
 
-```
-$ go get -u github.com/Doarakko/go-yugioh/yugioh
+```bash
+go get -u github.com/Doarakko/go-yugioh/yugioh
 ```
 
 ## Documentation
@@ -62,7 +63,7 @@ for _, card := range cards.Data {
 fmt.Printf("Nex page is %s\n", cards.Meta.NextPage)
 ```
 
-```
+```text
 "A-to-Z-Dragon Buster Cannon" has been viewed 50305 times.
 Type: Fusion Monster
 Race: Machine

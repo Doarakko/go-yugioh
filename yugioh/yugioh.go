@@ -22,15 +22,12 @@ type Client struct {
 	BaseURL   *url.URL
 	UserAgent string
 
-	Cards       *CardsService
-	CardSets    *CardSetsService
-	CardSetInfo *CardSetInfoService
-	RandomCards *RandomCardsService
-	Archetypes  *ArchetypesService
-}
-
-type service struct {
-	client *Client
+	Cards          *CardsService
+	CardSets       *CardSetsService
+	CardSetInfo    *CardSetInfoService
+	RandomCards    *RandomCardsService
+	Archetypes     *ArchetypesService
+	CheckDBVersion *CheckDBVersionService
 }
 
 // addOptions ...
@@ -65,6 +62,7 @@ func NewClient() *Client {
 	c.CardSetInfo = &CardSetInfoService{client: c}
 	c.RandomCards = &RandomCardsService{client: c}
 	c.Archetypes = &ArchetypesService{client: c}
+	c.CheckDBVersion = &CheckDBVersionService{client: c}
 
 	return c
 }
