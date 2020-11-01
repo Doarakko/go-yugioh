@@ -19,7 +19,7 @@ type DBInformation struct {
 // One ...
 func (s *CheckDBVersionService) One() (DBInformation, *http.Response, error) {
 	u := defaultBaseURL + "checkDBVer.php"
-	req, err := s.client.NewRequest("GET", u, nil)
+	req, err := s.client.NewRequest(http.MethodGet, u, nil)
 	if err != nil {
 		return DBInformation{}, nil, err
 	}

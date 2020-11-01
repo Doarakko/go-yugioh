@@ -185,7 +185,7 @@ func (s *CardsService) List(opt *CardsListOptions) (*Cards, *http.Response, erro
 		u = fmt.Sprintf("%s&offset=0", u)
 	}
 
-	req, err := s.client.NewRequest("GET", u, nil)
+	req, err := s.client.NewRequest(http.MethodGet, u, nil)
 	if err != nil {
 		return nil, nil, err
 	}

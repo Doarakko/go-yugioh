@@ -20,7 +20,7 @@ type CardSet struct {
 // This method can NOT use options.
 func (s *CardSetsService) List() ([]CardSet, *http.Response, error) {
 	u := defaultBaseURL + "cardsets.php"
-	req, err := s.client.NewRequest("GET", u, nil)
+	req, err := s.client.NewRequest(http.MethodGet, u, nil)
 	if err != nil {
 		return nil, nil, err
 	}
