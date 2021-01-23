@@ -2,6 +2,7 @@
 
 [![GoDoc](https://godoc.org/github.com/Doarakko/go-yugioh?status.svg)](https://pkg.go.dev/github.com/Doarakko/go-yugioh/yugioh)
 [![Go Report Card](https://goreportcard.com/badge/github.com/Doarakko/go-yugioh)](https://goreportcard.com/report/github.com/Doarakko/go-yugioh)
+![golangci-lint](https://github.com/Doarakko/go-yugioh/workflows/golangci-lint/badge.svg)
 
 go-yugioh is a Go client library for accessing the [Yu-Gi-Oh! API by YGOPRODeck](https://db.ygoprodeck.com/api-guide/) v7.
 
