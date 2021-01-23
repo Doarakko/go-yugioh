@@ -108,10 +108,16 @@ func (c *Client) Do(req *http.Request, v interface{}) (*http.Response, error) {
 
 	if v != nil {
 		if w, ok := v.(io.Writer); ok {
-			io.Copy(w, resp.Body)
+			_, err = io.Copy(w, resp.Body)
+			if err != nil {
+				return nil, err
+			}
 		} else {
 			err = json.NewDecoder(resp.Body).Decode(v)
+			if err != nil {
+				return nil, err
+			}
 		}
 	}
-	return resp, err
+	return resp, nil
 }
