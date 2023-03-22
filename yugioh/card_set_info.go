@@ -9,11 +9,12 @@ type CardSetInfoService struct {
 
 // CardSetInfo ...
 type CardSetInfo struct {
-	ID     int     `json:"id"`
-	Name   string  `json:"set_name"`
-	Code   string  `json:"set_code"`
-	Rarity string  `json:"set_rarity"`
-	Price  float32 `json:"set_price,string"`
+	ID      int     `json:"id"`
+	Name    string  `json:"name"`
+	Price   float32 `json:"set_price,string"`
+	SetName string  `json:"set_name"`
+	Code    string  `json:"set_code"`
+	Rarity  string  `json:"set_rarity"`
 }
 
 // CardSetInfoOneOptions ...

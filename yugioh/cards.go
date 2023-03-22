@@ -22,6 +22,7 @@ type Card struct {
 	ID          int32   `json:"id"`
 	Name        string  `json:"name"`
 	Type        string  `json:"type"`
+	FrameType   string  `json:"frameType"`
 	Description string  `json:"desc"`
 	Race        string  `json:"race"`
 	Archetype   string  `json:"archetype"`
@@ -83,9 +84,10 @@ type BanListInfo struct {
 
 // Image card image.
 type Image struct {
-	ID       int32  `json:"id"`
-	URL      string `json:"image_url"`
-	SmallURL string `json:"image_url_small"`
+	ID         int32  `json:"id"`
+	URL        string `json:"image_url"`
+	SmallURL   string `json:"image_url_small"`
+	CroppedURL string `json:"image_url_cropped"`
 }
 
 // Misc if you want to get, set "yes" to Misc param
@@ -129,14 +131,18 @@ type Meta struct {
 
 // CardsListOptions specifies the optional parameters to various CardsService.List methods.
 type CardsListOptions struct {
-	ID        int32  `url:"name,omitempty"`
-	Name      string `url:"name,omitempty"`
+	// must be comma separated. You can't use this with Name field.
+	IDs  string `url:"id,omitempty"`
+	Name string `url:"name,omitempty"`
+
 	Q         string `url:"fname,omitempty"`
+	KonamiID  string `url:"konami_id,omitempty"`
 	Type      string `url:"type,omitempty"`
 	Race      string `url:"race,omitempty"`
 	Archetype string `url:"archetype,omitempty"`
-	Set       string `url:"set,omitempty"`
-	BanList   string `url:"banlist,omitempty"`
+	Set       string `url:"cardset,omitempty"`
+	BanList   string `url:"banlist,omitempty,oneof=TCG OCG Goat"`
+	HasEffect bool   `url:"has_effect,omitempty"`
 
 	Sort string `url:"sort,omitempty" validate:"omitempty,oneof=atk def name type level id new"`
 
