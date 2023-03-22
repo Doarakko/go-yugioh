@@ -13,7 +13,7 @@ type Archetype struct {
 	Name string `json:"archetype_name"`
 }
 
-// List get all archetypes name.
+// List all archetypes name.
 // This method can NOT use options.
 func (s *ArchetypesService) List() ([]Archetype, *http.Response, error) {
 	u := defaultBaseURL + "archetypes.php"

@@ -16,7 +16,7 @@ type CardSet struct {
 	ReleasedDate string `json:"tcg_date"`
 }
 
-// List get all card sets name.
+// List all card sets name.
 // This method can NOT use options.
 func (s *CardSetsService) List() ([]CardSet, *http.Response, error) {
 	u := defaultBaseURL + "cardsets.php"
