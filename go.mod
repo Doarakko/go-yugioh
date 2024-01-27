@@ -3,7 +3,7 @@ module github.com/Doarakko/go-yugioh
 go 1.17
 
 require (
-	github.com/go-playground/validator/v10 v10.16.0
+	github.com/go-playground/validator/v10 v10.17.0
 	github.com/google/go-querystring v1.1.0
 )
 
